@@ -9,6 +9,7 @@
 //
 // CREATE TABLE `locations` (
 //   `geoname_id`              INT(10)       UNSIGNED NOT NULL DEFAULT '0',
+//   `locale_code`             VARCHAR(2)             NOT NULL DEFAULT '',
 //   `continent_code`          VARCHAR(2)             NOT NULL DEFAULT '',
 //   `continent_name`          VARCHAR(40)            NOT NULL DEFAULT '',
 //   `country_iso_code`        VARCHAR(2)             NOT NULL DEFAULT '',
@@ -55,12 +56,12 @@ func main() {
 	fmt.Println("geoname_id,locale_code,continent_code,continent_name,country_iso_code,country_name,subdivision_1_iso_code,subdivision_1_name,subdivision_2_iso_code,subdivision_2_name,city_name,metro_code,time_zone")
 
 	lineCount := 0
-	timezoneid := 1
+	timezoneid := 1 // The next timezone, 0 is assumed to be UTC
 	for {
 		record, err := reader.Read()
 		if err != nil {
 			if err != io.EOF {
-				fmt.Fprintf(os.Stderr, "Error: ", err.Error())
+				fmt.Fprintf(os.Stderr, "Error: %s\n", err.Error())
 				return
 			}
 			break
@@ -80,11 +81,11 @@ func main() {
 			// and assign it a new timezoneid
 			timezones[record[12]] = timezoneid
 			tzid = timezoneid
-			timezoneid += 1
+			timezoneid++
 		}
 
-		fmt.Printf("%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%s,%d\n",
-			record[0], record[1], record[2], record[3], record[4], record[4], record[5],
+		fmt.Printf("%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%s,%d\n",
+			record[0], record[1], record[2], record[3], record[4], record[5],
 			record[6], record[7], record[8], record[9], record[10], record[11], tzid)
 
 	}
