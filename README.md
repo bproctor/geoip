@@ -63,7 +63,7 @@ CREATE TABLE `timezones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-Example for runnning create-locations.go:
+Example for running create-locations.go:
 ```
 $ go run create-locations.go GeoLite2/GeoLite2-City-Locations-en.csv > locations.csv
 ```
