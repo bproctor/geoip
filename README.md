@@ -39,6 +39,7 @@ Example database tables in MySQL:
 ```
 CREATE TABLE `locations` (
   `geoname_id`              INT(10)       UNSIGNED NOT NULL DEFAULT '0',
+  `locale_code`             VARCHAR(2)             NOT NULL DEFAULT '',
   `continent_code`          VARCHAR(2)             NOT NULL DEFAULT '',
   `continent_name`          VARCHAR(40)            NOT NULL DEFAULT '',
   `country_iso_code`        VARCHAR(2)             NOT NULL DEFAULT '',
